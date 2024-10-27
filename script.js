@@ -49,26 +49,32 @@ const planets = [{
 },
 ]
 
-for (let i = 0; i < planets.length; i++) {
-	planets_bar.innerHTML += '<a href="planets.html?id=' + i + '"><img src="' + planets[i].icon + '"></a>';
-}
 
 //query string
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
+for (let i = 0; i < planets.length; i++) {
+	planets_bar.innerHTML += '<a href="planets.html?id=' + i + '" class="nav-link"><img src="' + planets[i].icon + '"></a>';
+}
+
+const navLinks = document.querySelectorAll('.nav-link');
+for (let i = 0; i < navLinks.length; i++) {
+    if (i == id) {
+        navLinks[i].classList.add('active');
+    }
+}
 
 	let planet_name = planets[id].name;
+	title.innerHTML = planet_name;
 
 	const imageSource = "url('" + planets[id].img + "')"; 
 	page.style.backgroundImage = imageSource;
 
-	const planetTitle = planets[id].name; 
-	title.innerHTML = planetTitle;
-
 	const documentTitle = 'AstroVision' + ' - ' + planet_name;
 	document.title = documentTitle;
 
+	
 	/*
 	function getNextPlanet(currentIndex) {
 		const nextIndex = (currentIndex + 1) % planets.length;
@@ -119,4 +125,3 @@ fetch(planet_url, {
 	}).catch(function (error) {
 		console.log(error);
 	});
-	
